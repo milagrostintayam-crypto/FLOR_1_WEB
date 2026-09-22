@@ -1,0 +1,304 @@
+/* =========================================
+   CONFIGURACIÓN GENERAL
+========================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #02030a;
+    color: white;
+    touch-action: manipulation;
+}
+
+/* =========================================
+   ESPACIO
+========================================= */
+
+.space {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(
+            circle at 50% 45%,
+            rgba(90, 65, 15, 0.25),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 50% 50%,
+            #111326 0%,
+            #070914 45%,
+            #010207 100%
+        );
+    z-index: -10;
+}
+
+/* =========================================
+   ESTRELLAS
+========================================= */
+
+.stars {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -5;
+}
+
+.star {
+    position: absolute;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 0 5px white;
+    animation: twinkle var(--duration) ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% {
+        opacity: 0.2;
+        transform: scale(0.7);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.4);
+    }
+}
+
+/* =========================================
+   ESCENA Y PRESENTACIÓN
+========================================= */
+
+.scene {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.intro {
+    position: absolute;
+    top: 7%;
+    text-align: center;
+    animation: introAppear 2s ease forwards;
+}
+
+.intro h1 {
+    font-size: 2.1rem;
+    font-weight: 300;
+    letter-spacing: 5px;
+    color: #ffe76b;
+    text-shadow: 0 0 8px #ffd900, 0 0 25px rgba(255, 217, 0, 0.7);
+}
+
+.intro p {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+@keyframes introAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =========================================
+   FLOR ANIMADA
+========================================= */
+
+.flower {
+    position: relative;
+    width: 330px;
+    height: 330px;
+    animation: flowerFloat 6s ease-in-out infinite;
+}
+
+@keyframes flowerFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-1deg);
+    }
+    50% {
+        transform: translateY(-12px) rotate(1deg);
+    }
+}
+
+/* =========================================
+   DISEÑO DE LOS PÉTALOS
+========================================= */
+
+.petal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 115px;
+    height: 145px;
+    margin-left: -57.5px;
+    margin-top: -72.5px;
+    overflow: hidden;
+    border-radius: 60% 60% 45% 45%;
+    border: 2px solid rgba(255, 226, 80, 0.75);
+    box-shadow: 0 0 10px rgba(255, 215, 0, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    transition: transform 0.8s cubic-bezier(.2,.8,.2,1), box-shadow 0.5s ease, filter 0.5s ease;
+}
+
+/* Estilo estricto para las imágenes de las fotos */
+.petal img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 50% 50% 45% 45%;
+    transition: transform 0.8s cubic-bezier(.2,.8,.2,1);
+}
+
+/* =========================================
+   POSICIONES Y ROTACIONES (ESCRITORIO)
+========================================= */
+
+.petal1 { transform: translateY(-110px) rotate(0deg); }
+.petal2 { transform: translate(95px, -55px) rotate(60deg); }
+.petal3 { transform: translate(95px, 55px) rotate(120deg); }
+.petal4 { transform: translateY(110px) rotate(180deg); }
+.petal5 { transform: translate(-95px, 55px) rotate(240deg); }
+.petal6 { transform: translate(-95px, -55px) rotate(300deg); }
+
+/* TRUCO: Contrarrestar rotación para mantener las fotos derechas */
+.petal1 img { transform: rotate(0deg); }
+.petal2 img { transform: rotate(-60deg); }
+.petal3 img { transform: rotate(-120deg); }
+.petal4 img { transform: rotate(-180deg); }
+.petal5 img { transform: rotate(-240deg); }
+.petal6 img { transform: rotate(-300deg); }
+
+/* =========================================
+   EFECTO SELECCIONADO (AL HACER CLIC)
+========================================= */
+
+.petal.selected {
+    z-index: 100;
+    box-shadow: 0 0 20px #ffe000, 0 0 45px rgba(255, 215, 0, 0.8);
+    filter: brightness(1.15);
+}
+
+/* Mantiene el zoom y la foto derecha al seleccionarse */
+.petal1.selected img { transform: scale(1.18) rotate(0deg); }
+.petal2.selected img { transform: scale(1.18) rotate(-60deg); }
+.petal3.selected img { transform: scale(1.18) rotate(-120deg); }
+.petal4.selected img { transform: scale(1.18) rotate(-180deg); }
+.petal5.selected img { transform: scale(1.18) rotate(-240deg); }
+.petal6.selected img { transform: scale(1.18) rotate(-300deg); }
+
+/* =========================================
+   CENTRO DE LA FLOR
+========================================= */
+
+.flower-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 78px;
+    height: 78px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle, #fff58a, #ffd000 50%, #b87500);
+    box-shadow: 0 0 15px #ffd000, 0 0 35px rgba(255, 210, 0, 0.8), 0 0 70px rgba(255, 180, 0, 0.3);
+    z-index: 20;
+    animation: centerGlow 3s ease-in-out infinite;
+}
+
+.flower-center span {
+    font-size: 32px;
+}
+
+@keyframes centerGlow {
+    0%, 100% { box-shadow: 0 0 15px #ffd000, 0 0 30px rgba(255, 210, 0, 0.5); }
+    50% { box-shadow: 0 0 25px #ffd000, 0 0 55px rgba(255, 210, 0, 0.8); }
+}
+
+/* =========================================
+   MENSAJE INFERIOR
+========================================= */
+
+.message {
+    position: absolute;
+    bottom: 8%;
+    text-align: center;
+    opacity: 0;
+    animation: messageAppear 2s ease 2s forwards;
+}
+
+.message p {
+    color: #ffe76b;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+@keyframes messageAppear {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================
+   ADAPTACIÓN PARA CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+    .flower {
+        width: 300px;
+        height: 300px;
+    }
+
+    .petal {
+        width: 100px;
+        height: 130px;
+        margin-left: -50px;
+        margin-top: -65px;
+    }
+
+    .petal1 { transform: translateY(-100px) rotate(0deg); }
+    .petal2 { transform: translate(88px, -50px) rotate(60deg); }
+    .petal3 { transform: translate(88px, 50px) rotate(120deg); }
+    .petal4 { transform: translateY(100px) rotate(180deg); }
+    .petal5 { transform: translate(-88px, 50px) rotate(240deg); }
+    .petal6 { transform: translate(-88px, -50px) rotate(300deg); }
+
+    /* Mantiene las fotos derechas en pantallas móviles */
+    .petal1 img { transform: rotate(0deg); }
+    .petal2 img { transform: rotate(-60deg); }
+    .petal3 img { transform: rotate(-120deg); }
+    .petal4 img { transform: rotate(-180deg); }
+    .petal5 img { transform: rotate(-240deg); }
+    .petal6 img { transform: rotate(-300deg); }
+
+    /* Zoom corregido para móviles */
+    .petal1.selected img { transform: scale(1.18) rotate(0deg); }
+    .petal2.selected img { transform: scale(1.18) rotate(-60deg); }
+    .petal3.selected img { transform: scale(1.18) rotate(-120deg); }
+    .petal4.selected img { transform: scale(1.18) rotate(-180deg); }
+    .petal5.selected img { transform: scale(1.18) rotate(-240deg); }
+    .petal6.selected img { transform: scale(1.18) rotate(-300deg); }
+
+    .intro h1 { font-size: 1.6rem; }
+    .message { bottom: 6%; }
+}
